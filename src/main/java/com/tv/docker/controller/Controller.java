@@ -1,9 +1,6 @@
 package com.tv.docker.controller;
 
-import com.tv.docker.model.Person;
-import com.tv.docker.model.Response;
-import com.tv.docker.model.SortPayload;
-import com.tv.docker.model.SortResponse;
+import com.tv.docker.model.*;
 import com.tv.docker.service.ServiceClass;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,6 +63,16 @@ public class Controller {
     }
 
     /**
+     * Retrieves a list of available search types.
+     *
+     * @return a List of Strings representing the available search types
+     */
+    @GetMapping("/searchTypes")
+    public List<String> searchTypes(){
+        return service.searchTypes();
+    }
+
+    /**
      * Sorts the input list of integers based on the specified sort type.
      *
      * @param sortPayload a {@link SortPayload} object containing the list of integers to be sorted and the sort type
@@ -78,6 +85,22 @@ public class Controller {
             return new ResponseEntity<>(service.sortResponse(sortPayload.getSortArr(), sortPayload.getSortType()),HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(new SortResponse(null, new Response("Error", 500,e.toString())),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Searches for a list of strings based on the specified search type.
+     *
+     * @param stringSearchPayload a {@link StringSearchPayload} object containing the list of String to be searched on and match with pattern and search type
+     * @return a {@link ResponseEntity} object containing a {@link StringSearchResponse} object with the searched list and response status
+     * @throws Exception if an error occurs during the sorting process
+     */
+    @PostMapping("/search")
+    public ResponseEntity<StringSearchResponse> searchRes(@RequestBody StringSearchPayload stringSearchPayload) throws Exception{
+        try{
+            return new ResponseEntity<>(service.searchString(stringSearchPayload.getSearchStrList(),stringSearchPayload.getMatchPattern(),stringSearchPayload.getSearchType()),HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(new StringSearchResponse(0,null,null,null, new Response("Error",500,e.toString())),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

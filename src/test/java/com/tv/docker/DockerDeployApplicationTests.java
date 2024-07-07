@@ -1,5 +1,7 @@
 package com.tv.docker;
 import com.tv.docker.implementation.SortImplementation;
+import com.tv.docker.implementation.StringSearchImplementation;
+import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ public class DockerDeployApplicationTests {
 
     @Autowired
     private SortImplementation implementation;
+
+    @Autowired
+    private StringSearchImplementation stringSearchImplementation;
 
     @Test
     void contextLoads() {
@@ -55,4 +60,26 @@ public class DockerDeployApplicationTests {
             Assertions.assertEquals(expectedResult, heapSortResult);
         }
     }
+
+
+    @Test
+    void testLinearSearchMethodInStringSearchImplementation() {
+        List<String> input = new ArrayList<>(List.of("Hello","World"));
+        String searchTerm = "World";
+        JSONObject expectedResult = new JSONObject();
+
+        JSONObject result = stringSearchImplementation.nativeSearch(input, searchTerm);
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void testBinarySearchMethodInStringSearchImplementation() {
+        List<String> input = new ArrayList<>(List.of("Hello","World"));
+        String searchTerm = "World";
+        JSONObject expectedResult = new JSONObject();
+
+        JSONObject result = stringSearchImplementation.nativeSearch(input, searchTerm);
+        Assertions.assertEquals(expectedResult, result);
+    }
+
 }
