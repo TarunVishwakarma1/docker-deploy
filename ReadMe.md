@@ -34,4 +34,16 @@ Many sort methods were implemented in this project.
 To find more details on how to use those methods. Just give it a try and execute /docker/sort
 
 
+## String search Methods
+
+Added String search methods for a given list of string. 
+
+*     nativeSearch
+*     rabinKarp
+*     knuthMorrisPratt
+*     boyerMoore
+*     ahoCorasick
+*     finiteAutomata
+
+To find more details on how to use those methods. Just give it a try and execute /docker/search
 
